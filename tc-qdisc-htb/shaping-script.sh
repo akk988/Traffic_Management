@@ -13,7 +13,7 @@
 TC=/sbin/tc
 
 
-# interface traffic will leave on
+# interface to be controlled, e.g. eth0, wlan0, wwan0, ..
 IF=wlp1s0
 
 # The parent limit, children can borrow from this amount of bandwidth
