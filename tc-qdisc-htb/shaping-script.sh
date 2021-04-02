@@ -14,7 +14,7 @@ TC=/sbin/tc
 
 
 # interface to be controlled, e.g. eth0, wlan0, wwan0, ..
-IF=wlp1s0
+IF=eth0
 
 # The parent limit, children can borrow from this amount of bandwidth
 # based on what's available.
@@ -31,16 +31,13 @@ START_RATE=1.8mbit
 # would be limited to 50mbits each.
 CHILD_LIMIT=7.5mbit
 
-# host 1
-DST_CIDR=192.168.0.101
-# host 2
-DST_CIDR_2=192.168.0.103
-
+# host 1 (rpi02)
+DST_CIDR=172.21.5.71
+# host 2 (rpi03)
+DST_CIDR_2=172.21.5.203
 
 # filter command -- add ip dst match at the end
 U32="$TC filter add dev $IF protocol ip parent 1:0 prio 1 u32"
-
-
 
 create () {
   echo "== SHAPING INIT =="
