@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script uses tc htb to control traffic
+# This script uses tc htb to control bandwidth of several hosts
 #HTB The Hierarchy Token Bucket implements a rich linksharing
 #  hierarchy of classes with an emphasis on conforming to
 #  existing practices. HTB facilitates guaranteeing bandwidth
