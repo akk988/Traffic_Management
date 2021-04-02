@@ -29,7 +29,7 @@ START_RATE=1.8mbit
 # to borrow from the parent.
 # e.g. if parent is limited to 100mbits, both children, if transmitting at max at the same time,
 # would be limited to 50mbits each.
-CHILD_LIMIT=7.5mbit
+CHILD_LIMIT=5mbit
 
 # host 1 (rpi02)
 DST_CIDR=172.21.5.71
