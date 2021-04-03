@@ -30,11 +30,16 @@ START_RATE=1.8mbit
 # e.g. if parent is limited to 100mbits, both children, if transmitting at max at the same time,
 # would be limited to 50mbits each.
 CHILD_LIMIT=5mbit
+CHILD_LIMIT_2=10mbit
 
-# host 1 (rpi02)
-DST_CIDR=172.21.5.71
-# host 2 (rpi03)
-DST_CIDR_2=172.21.5.203
+# host 1 (rpi04)
+#DST_CIDR=172.21.5.71
+DST_CIDR=192.168.0.100
+# host 2 (rpi02)
+#DST_CIDR_2=172.21.5.203
+DST_CIDR_2=192.168.0.107
+# host 3 (rpi01)
+DST_CIDR_3=192.168.0.106
 
 # filter command -- add ip dst match at the end
 U32="$TC filter add dev $IF protocol ip parent 1:0 prio 1 u32"
@@ -50,12 +55,14 @@ create () {
   # create children qdiscs; reference parent
   $TC class add dev $IF parent 1:1 classid 1:10 htb rate $START_RATE ceil $CHILD_LIMIT
   $TC class add dev $IF parent 1:1 classid 1:30 htb rate $START_RATE ceil $CHILD_LIMIT
+  $TC class add dev $IF parent 1:1 classid 1:40 htb rate $START_RATE ceil $CHILD_LIMIT_2
 
   # setup filters to ensure packets are enqueued to the correct
   # child based on the dst IP of the packet
 
   $U32 match ip dst $DST_CIDR flowid 1:10
   $U32 match ip dst $DST_CIDR_2 flowid 1:30
+  $U32 match ip dst $DST_CIDR_3 flowid 1:40
 
   echo "== SHAPING DONE =="
 }
